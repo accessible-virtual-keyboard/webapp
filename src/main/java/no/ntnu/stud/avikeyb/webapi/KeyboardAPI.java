@@ -54,7 +54,7 @@ public class KeyboardAPI {
             e.printStackTrace();
         }
 
-        final Suggestions suggestions = new SingleThreadSuggestions(keyboard, dictionary);
+        final Suggestions suggestions = new SingleThreadSuggestions(dictionary);
 
         layout = new BinarySearchLayout(keyboard);
 
@@ -62,6 +62,13 @@ public class KeyboardAPI {
             @Override
             public void onSuggestions(List<String> list) {
                 layout.setSuggestions(list);
+            }
+        });
+
+        keyboard.addStateListener(new Keyboard.KeyboardListener() {
+            @Override
+            public void onOutputBufferChange(String oldBuffer, String newBuffer) {
+                suggestions.findSuggestionsStartingWith(keyboard.getCurrentWord());
             }
         });
 
