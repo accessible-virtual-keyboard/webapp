@@ -1,9 +1,6 @@
 package no.ntnu.stud.avikeyb.webapi;
 
-import no.ntnu.stud.avikeyb.backend.InputType;
-import no.ntnu.stud.avikeyb.backend.Keyboard;
-import no.ntnu.stud.avikeyb.backend.Layout;
-import no.ntnu.stud.avikeyb.backend.OutputDevice;
+import no.ntnu.stud.avikeyb.backend.*;
 import no.ntnu.stud.avikeyb.backend.core.CoreKeyboard;
 import no.ntnu.stud.avikeyb.backend.core.SingleThreadSuggestions;
 import no.ntnu.stud.avikeyb.backend.dictionary.DictionaryHandler;
@@ -20,6 +17,7 @@ import javax.annotation.PreDestroy;
 import java.io.IOException;
 import java.text.ParseException;
 import java.util.HashSet;
+import java.util.List;
 import java.util.Set;
 
 /**
@@ -56,7 +54,16 @@ public class KeyboardAPI {
             e.printStackTrace();
         }
 
-        layout = new BinarySearchLayout(keyboard, new SingleThreadSuggestions(keyboard, dictionary));
+        final Suggestions suggestions = new SingleThreadSuggestions(keyboard, dictionary);
+
+        layout = new BinarySearchLayout(keyboard);
+
+        suggestions.addListener(new Suggestions.Listener() {
+            @Override
+            public void onSuggestions(List<String> list) {
+                layout.setSuggestions(list);
+            }
+        });
 
         layout.addLayoutListener(new Layout.LayoutListener() {
             @Override
