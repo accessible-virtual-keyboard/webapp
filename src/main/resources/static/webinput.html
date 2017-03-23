@@ -1,0 +1,56 @@
+<!DOCTYPE HTML>
+<html>
+   <head>WebApi Inputs</head>
+   <meta charset="utf-8">
+   <body >
+       <div>
+            <button class="input">Input 1</button>
+            <button class="input">Input 2</button>
+            <button class="input">Input 3</button>
+            <button class="input">Input 4</button>
+        </div>
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.1.1/jquery.min.js"></script>
+<script type="text/javascript">
+
+function init(){
+
+    var reconnectCount = 0;
+    var reconnectLimit = 10;
+
+    var ws;
+
+    function reconnect(){
+
+        if(reconnectCount > reconnectLimit){
+            alert("Disconnected. Reload to reconnect");
+            ws = null;
+            return;
+        }
+        reconnectCount++;
+        console.log("Connecting...");
+        ws = new WebSocket("ws://avikeyb.myr1.net/input");
+        ws.onopen = function(){
+            console.log("Conneted");
+        }
+        ws.onclose = function(){ 
+            console.log("Disconnected");
+            setTimeout(reconnect, 5000);
+        };
+    }
+
+    reconnect();
+
+    $('.input').each(function(i, el){
+        $(el).on('click', function(){
+            ws.send((i + 1).toString()); 
+        });
+    });
+
+
+}
+
+init();
+
+</script>
+</body>
+</html>
