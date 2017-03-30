@@ -133,8 +133,7 @@ public class KeyboardAPI {
     }
 
     private void sendInput(InputType input) {
-        layout.setInputState(input, true);
-        layout.setInputState(input, false);
+        layout.sendInputSignal(input);
     }
 
 
