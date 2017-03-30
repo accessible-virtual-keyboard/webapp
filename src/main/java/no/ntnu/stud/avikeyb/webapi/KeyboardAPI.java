@@ -1,8 +1,10 @@
 package no.ntnu.stud.avikeyb.webapi;
 
-import no.ntnu.stud.avikeyb.backend.*;
+import no.ntnu.stud.avikeyb.backend.InputType;
+import no.ntnu.stud.avikeyb.backend.Keyboard;
+import no.ntnu.stud.avikeyb.backend.Layout;
+import no.ntnu.stud.avikeyb.backend.OutputDevice;
 import no.ntnu.stud.avikeyb.backend.core.CoreKeyboard;
-import no.ntnu.stud.avikeyb.backend.core.SingleThreadSuggestions;
 import no.ntnu.stud.avikeyb.backend.dictionary.DictionaryHandler;
 import no.ntnu.stud.avikeyb.backend.dictionary.ResourceHandler;
 import no.ntnu.stud.avikeyb.backend.layouts.BinarySearchLayout;
@@ -17,7 +19,6 @@ import javax.annotation.PreDestroy;
 import java.io.IOException;
 import java.text.ParseException;
 import java.util.HashSet;
-import java.util.List;
 import java.util.Set;
 
 /**
